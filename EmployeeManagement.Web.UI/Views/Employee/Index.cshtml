@@ -1,0 +1,49 @@
+﻿@model  EmployeeManagement.Web.UI.ViewModels.EmployeeViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>County</th>
+        <th>City</th>
+        <th>ContactNo</th>
+        <th>Email</th>
+        <th>Salary</th>
+        <th>Edit | Details | Delete</th>
+    </tr>
+
+@foreach (var employee in Model.EmployeeList) {
+    <tr>
+        <td>@employee.Name</td>
+        <td>@employee.Address</td>
+        <td>
+            @Model.CountyList.FirstOrDefault(ch=>ch.Id == @employee.CountyId).Name
+        </td>
+        <td> 
+            @Model.CityList.FirstOrDefault(ch => ch.Id == @employee.CityId).Name
+        </td>
+        <td>@employee.ContactNo</td>
+        <td>@employee.Email</td>
+         <td> 
+            @Model.SalaryList.FirstOrDefault(ch => ch.Id == @employee.SalaryId).Amount
+        </td>
+
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = @employee.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = @employee.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = @employee.Id })
+        </td>
+    </tr>
+}
+
+</table>
